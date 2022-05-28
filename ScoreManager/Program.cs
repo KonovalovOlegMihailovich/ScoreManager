@@ -1,4 +1,4 @@
-namespace ScoreManage
+namespace ScoreManager
 {
     internal static class Program
     {

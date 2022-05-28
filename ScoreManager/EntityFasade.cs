@@ -10,13 +10,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScoreManager
 {
+    public class History
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public DateTime Date { get; set; } 
+        public string Type { get; set; }
+        public Employees? Employees { get; set; }
+        public Department? Department { get; set; }
+
+    }
     public class Reason
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int Score { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
     public class Department
     {
@@ -25,6 +36,12 @@ namespace ScoreManager
         public int Id { get; set; }
         public string DepartmentName { get; set; }
         public List<Reason> Reasons { get; set; }
+        public List<Employees> Employees { get; set; }
+        public int Balance { get; set; }
+        //public int LimitMountScore { get; set; }  //
+        //public int LimitSectorScore { get; set; } // Будем считать из истории.
+        //public int LimitYearScore { get; set; }   //
+        public int Spent { get; set;  }
     }
     public class Employees
     {
@@ -32,12 +49,17 @@ namespace ScoreManager
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string FullName { get; set; }
-        public int Score { get; set; }
+        public int TotalScore { get; set; }
         public Department Department { get; set; }
     }
-    internal class EntityFasade: DbContext
+    internal class ApplicationContext: DbContext
     {
-        public EntityFasade()
+        public DbSet<Employees> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Reason> Reasons { get; set; }
+        public DbSet<History> Histories { get; set; }
+
+        public ApplicationContext()
         {
             Database.EnsureCreated();
         }
