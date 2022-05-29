@@ -40,9 +40,10 @@
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.причиныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.персоналToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отделыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReasonsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TovarsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updategridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -138,30 +139,41 @@
             // показатьToolStripMenuItem
             // 
             this.показатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.причиныToolStripMenuItem,
-            this.персоналToolStripMenuItem,
-            this.отделыToolStripMenuItem});
+            this.ReasonsToolStripMenuItem,
+            this.EmpToolStripMenuItem,
+            this.DepToolStripMenuItem,
+            this.TovarsToolStripMenuItem});
             this.показатьToolStripMenuItem.Name = "показатьToolStripMenuItem";
             this.показатьToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.показатьToolStripMenuItem.Text = "Показать";
             // 
-            // причиныToolStripMenuItem
+            // ReasonsToolStripMenuItem
             // 
-            this.причиныToolStripMenuItem.Name = "причиныToolStripMenuItem";
-            this.причиныToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.причиныToolStripMenuItem.Text = "Причины";
+            this.ReasonsToolStripMenuItem.Name = "ReasonsToolStripMenuItem";
+            this.ReasonsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.ReasonsToolStripMenuItem.Text = "Причины";
+            this.ReasonsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
-            // персоналToolStripMenuItem
+            // EmpToolStripMenuItem
             // 
-            this.персоналToolStripMenuItem.Name = "персоналToolStripMenuItem";
-            this.персоналToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.персоналToolStripMenuItem.Text = "Персонал";
+            this.EmpToolStripMenuItem.Name = "EmpToolStripMenuItem";
+            this.EmpToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.EmpToolStripMenuItem.Text = "Персонал";
+            this.EmpToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
-            // отделыToolStripMenuItem
+            // DepToolStripMenuItem
             // 
-            this.отделыToolStripMenuItem.Name = "отделыToolStripMenuItem";
-            this.отделыToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.отделыToolStripMenuItem.Text = "Отделы";
+            this.DepToolStripMenuItem.Name = "DepToolStripMenuItem";
+            this.DepToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.DepToolStripMenuItem.Text = "Отделы";
+            this.DepToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
+            // 
+            // TovarsToolStripMenuItem
+            // 
+            this.TovarsToolStripMenuItem.Name = "TovarsToolStripMenuItem";
+            this.TovarsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.TovarsToolStripMenuItem.Text = "Товары";
+            this.TovarsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // updategridToolStripMenuItem
             // 
@@ -206,14 +218,15 @@
         private ToolStripMenuItem изменитьToolStripMenuItem;
         private ToolStripMenuItem удалитьToolStripMenuItem;
         private ToolStripMenuItem показатьToolStripMenuItem;
-        private ToolStripMenuItem причиныToolStripMenuItem;
-        private ToolStripMenuItem персоналToolStripMenuItem;
-        private ToolStripMenuItem отделыToolStripMenuItem;
+        private ToolStripMenuItem ReasonsToolStripMenuItem;
+        private ToolStripMenuItem EmpToolStripMenuItem;
+        private ToolStripMenuItem DepToolStripMenuItem;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem начислитьБаллыToolStripMenuItem;
         private ToolStripMenuItem списатьToolStripMenuItem;
         private ToolStripMenuItem историяСписанийИНачисленийToolStripMenuItem;
         private ToolStripMenuItem updategridToolStripMenuItem;
         private ToolStripMenuItem loadDataToolStripMenuItem;
+        private ToolStripMenuItem TovarsToolStripMenuItem;
     }
 }

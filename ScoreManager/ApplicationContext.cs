@@ -10,6 +10,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScoreManager
 {
+    public class Limits
+    {
+        [Key]
+        public string Year { get; set; }
+        public uint January { get; set; }
+        public uint February { get; set; }
+        public uint March { get; set; }
+        public uint April { get; set; }
+        public uint May { get; set; }
+        public uint June { get; set; }
+        public uint July { get; set; }
+        public uint August { get; set; }
+        public uint September { get; set; }
+        public uint October { get; set; }
+        public uint November { get; set; }
+        public uint December { get; set; }
+    }
     public class Tovar
     {
         [Key]
@@ -46,6 +63,7 @@ namespace ScoreManager
         public string DepartmentName { get; set; }
         public List<Reason> Reasons { get; set; }
         public List<Employees> Employees { get; set; }
+        public List<Limits> Limits { get; set; }
         public uint Balance { get; set; }
         public int Spent { get; set; }
     }
