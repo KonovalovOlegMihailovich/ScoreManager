@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace ScoreManager
 {
     public class Limits
     {
         [Key]
-        public string Year { get; set; }
+        public uint Year { get; set; } = 2022;
         public uint January { get; set; }
         public uint February { get; set; }
         public uint March { get; set; }
@@ -37,16 +36,18 @@ namespace ScoreManager
         public uint Quantity { get; set; }
     }
 
-    public class History
+    public class History<TEntity> where TEntity : class
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public uint Id { get; set; }
-        public DateTime Date { get; set; } 
+        public DateTime Date { get; set; }
+        public TimeSpan Time { get; set; }
         public string Type { get; set; }
-        public Employees? Employees { get; set; }
-        public Department? Department { get; set; }
+        public uint Sum { get; set; }
+        public TEntity Entity { get; set; }
     }
+    
     public class Reason
     {
         [Key]
@@ -54,6 +55,7 @@ namespace ScoreManager
         public uint Id { get; set; }
         public uint Score { get; set; }
         public string Name { get; set; }
+        public override string ToString() => Name;
     }
     public class Department
     {
@@ -64,8 +66,9 @@ namespace ScoreManager
         public List<Reason> Reasons { get; set; }
         public List<Employees> Employees { get; set; }
         public List<Limits> Limits { get; set; }
-        public uint Balance { get; set; }
-        public int Spent { get; set; }
+        public uint Balance { get; set; } = 0;
+        public uint Spent { get; set; }
+        public override string ToString() => DepartmentName;
     }
     public class Employees
     {
@@ -73,19 +76,24 @@ namespace ScoreManager
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public uint Id { get; set; }
         public string FullName { get; set; }
-        public uint TotalScore { get; set; }
+        public uint Balance { get; set; } = 0;
         public Department Department { get; set; }
+        public override string ToString() => FullName;
     }
+
     internal class ApplicationContext: DbContext
     {
-        public DbSet<Employees> Employees { get; set; }
+        private DbSet<Employees> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Reason> Reasons { get; set; }
-        public DbSet<History> Histories { get; set; }
+        private DbSet<History<Employees>> HistoriesEmp { get; set; }
         public DbSet<Tovar> Tovars { get; set; }
+        public HistoryBalanceEmployees historyBalanceEmployees { get; private set; }
+
         public ApplicationContext()
         {
             Database.EnsureCreated();
+            historyBalanceEmployees = new HistoryBalanceEmployees(Employees, HistoriesEmp);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

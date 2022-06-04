@@ -12,8 +12,7 @@ namespace ScoreManager
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            selected = ReasonsToolStripMenuItem;
-            updategridToolStripMenuItem_Click(sender, e);
+            SelectedDB(ReasonsToolStripMenuItem, e);
         }
 
         private void addscore(object sender, EventArgs e)
@@ -27,10 +26,10 @@ namespace ScoreManager
             {
                 EselectTable = new Dictionary<object, IEnumerable<object>>() // Заполняем словарь, нужными значениями для удобного выбора БД
                 {
-                    [ReasonsToolStripMenuItem] = db.Reasons.ToList(),
-                    [DepToolStripMenuItem] = db.Departments.ToList(),
-                    [EmpToolStripMenuItem] = db.Employees.ToList(),
-                    [TovarsToolStripMenuItem] = db.Tovars.ToList()
+                    [ReasonsToolStripMenuItem] = db.historyBalanceEmployees.Get()
+                    //    [DepToolStripMenuItem] = db.Departments.ToList(),
+                    //    [EmpToolStripMenuItem] = db.Employees.ToList(),
+                    //    [TovarsToolStripMenuItem] = db.Tovars.ToList()
                 };
                 dataGridView1.DataSource = EselectTable[selected];
             }
@@ -38,10 +37,11 @@ namespace ScoreManager
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show(TimeSpan.Parse(DateTime.Now.ToLongTimeString()).ToString());
             using (ApplicationContext db = new ApplicationContext())
             {
-                db.Reasons.Add(new Reason() { Name = "Переаботал 12 часов", Score = 125});
-                db.SaveChanges();
+                //db.Reasons.Add(new Reason() { Name = "Переаботал 12 часов", Score = 125});
+                //db.SaveChanges();
             }
         }
 
