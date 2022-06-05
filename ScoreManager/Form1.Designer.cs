@@ -1,6 +1,6 @@
 ﻿namespace ScoreManager
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.
@@ -35,7 +35,7 @@
             this.списатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.историяСписанийИНачисленийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PravkaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +44,7 @@
             this.EmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TovarsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updategridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -56,6 +57,7 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -74,31 +76,31 @@
             this.списатьToolStripMenuItem,
             this.историяСписанийИНачисленийToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(258, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(135, 70);
             // 
             // начислитьБаллыToolStripMenuItem
             // 
             this.начислитьБаллыToolStripMenuItem.Name = "начислитьБаллыToolStripMenuItem";
-            this.начислитьБаллыToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.начислитьБаллыToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.начислитьБаллыToolStripMenuItem.Text = "Начислить";
             this.начислитьБаллыToolStripMenuItem.Click += new System.EventHandler(this.addscore);
             // 
             // списатьToolStripMenuItem
             // 
             this.списатьToolStripMenuItem.Name = "списатьToolStripMenuItem";
-            this.списатьToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.списатьToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.списатьToolStripMenuItem.Text = "Списать";
             // 
             // историяСписанийИНачисленийToolStripMenuItem
             // 
             this.историяСписанийИНачисленийToolStripMenuItem.Name = "историяСписанийИНачисленийToolStripMenuItem";
-            this.историяСписанийИНачисленийToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.историяСписанийИНачисленийToolStripMenuItem.Text = "История списаний и начислений";
+            this.историяСписанийИНачисленийToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.историяСписанийИНачисленийToolStripMenuItem.Text = "Сведенье";
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.правкаToolStripMenuItem,
+            this.PravkaToolStripMenuItem,
             this.показатьToolStripMenuItem,
             this.updategridToolStripMenuItem,
             this.loadDataToolStripMenuItem});
@@ -108,33 +110,35 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // правкаToolStripMenuItem
+            // PravkaToolStripMenuItem
             // 
-            this.правкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PravkaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавитьToolStripMenuItem,
             this.изменитьToolStripMenuItem,
             this.удалитьToolStripMenuItem});
-            this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.правкаToolStripMenuItem.Text = "Правка";
+            this.PravkaToolStripMenuItem.Name = "PravkaToolStripMenuItem";
+            this.PravkaToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.PravkaToolStripMenuItem.Text = "Правка";
             // 
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.добавитьToolStripMenuItem.Text = "Добавить";
+            this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.Add);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.Remove);
             // 
             // показатьToolStripMenuItem
             // 
@@ -142,7 +146,8 @@
             this.ReasonsToolStripMenuItem,
             this.EmpToolStripMenuItem,
             this.DepToolStripMenuItem,
-            this.TovarsToolStripMenuItem});
+            this.TovarsToolStripMenuItem,
+            this.HistoryToolStripMenuItem});
             this.показатьToolStripMenuItem.Name = "показатьToolStripMenuItem";
             this.показатьToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.показатьToolStripMenuItem.Text = "Показать";
@@ -174,6 +179,13 @@
             this.TovarsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.TovarsToolStripMenuItem.Text = "Товары";
             this.TovarsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
+            // 
+            // HistoryToolStripMenuItem
+            // 
+            this.HistoryToolStripMenuItem.Name = "HistoryToolStripMenuItem";
+            this.HistoryToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.HistoryToolStripMenuItem.Text = "История";
+            this.HistoryToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // updategridToolStripMenuItem
             // 
@@ -213,7 +225,7 @@
 
         private DataGridView dataGridView1;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem правкаToolStripMenuItem;
+        private ToolStripMenuItem PravkaToolStripMenuItem;
         private ToolStripMenuItem добавитьToolStripMenuItem;
         private ToolStripMenuItem изменитьToolStripMenuItem;
         private ToolStripMenuItem удалитьToolStripMenuItem;
@@ -228,5 +240,6 @@
         private ToolStripMenuItem updategridToolStripMenuItem;
         private ToolStripMenuItem loadDataToolStripMenuItem;
         private ToolStripMenuItem TovarsToolStripMenuItem;
+        private ToolStripMenuItem HistoryToolStripMenuItem;
     }
 }

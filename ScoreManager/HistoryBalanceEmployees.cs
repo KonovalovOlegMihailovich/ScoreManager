@@ -46,6 +46,7 @@ namespace ScoreManager
         public void Remove(Employees entity)
         {
             Histories.RemoveRange(Histories.Where(s => s.Entity == entity)); // Удаляем всю историю связаную с данной записью
+            entity.Department.Balance += entity.Balance; // Отправляем остаток баланса сотрудника в копилку отделу
             Entities.Remove(entity);
         }
        
