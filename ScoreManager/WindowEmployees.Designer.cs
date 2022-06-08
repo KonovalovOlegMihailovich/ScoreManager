@@ -1,6 +1,6 @@
 ﻿namespace ScoreManager
 {
-    partial class AddEmployees
+    partial class WindowEmployees
     {
         /// <summary>
         /// Required designer variable.

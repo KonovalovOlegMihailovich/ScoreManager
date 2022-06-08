@@ -1,6 +1,6 @@
 ﻿namespace ScoreManager
 {
-    partial class AddDepartament
+    partial class WindowTovar
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // WindowTovar
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "AddDepartament";
+            this.ClientSize = new System.Drawing.Size(246, 248);
+            this.Name = "WindowTovar";
+            this.Text = "WindowTovar";
+            this.Load += new System.EventHandler(this.WindowTovar_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

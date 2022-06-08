@@ -12,7 +12,9 @@ namespace ScoreManager
     public class Limits
     {
         [Key]
-        public uint Year { get; set; } = 2022;
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public uint Year { get; set; } = (uint) DateTime.Now.Year; 
         public uint January { get; set; }
         public uint February { get; set; }
         public uint March { get; set; }
@@ -25,6 +27,7 @@ namespace ScoreManager
         public uint October { get; set; }
         public uint November { get; set; }
         public uint December { get; set; }
+        public List<Department> departments { get; set; }
     }
     public class Tovar
     {
@@ -55,6 +58,7 @@ namespace ScoreManager
         public uint Id { get; set; }
         public uint Score { get; set; }
         public string Name { get; set; }
+        public List<Department> departments { get; set; } = new List<Department>();
         public override string ToString() => Name;
     }
     public class Department
@@ -63,11 +67,11 @@ namespace ScoreManager
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public uint Id { get; set; }
         public string DepartmentName { get; set; }
-        public List<Reason> Reasons { get; set; }
-        public List<Employees> Employees { get; set; }
-        public List<Limits> Limits { get; set; }
+        public List<Reason> Reasons { get; set; } = new List<Reason>();
+        public List<Employees> Employees { get; set; } = new List<Employees>();
+        public List<Limits> Limits { get; set; } = new List<Limits>();
         public uint Balance { get; set; } = 0;
-        public uint Spent { get; set; }
+        public uint Spent { get; set; } = 0;
         public override string ToString() => DepartmentName;
     }
     public class Employees
@@ -97,6 +101,7 @@ namespace ScoreManager
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // Здесь надо строчку подключения поменять, при желании можно реализовать чтобы 
             optionsBuilder.UseSqlServer("Data Source=.\\MSSQLSERVER1;Database=1c-galex;User ID=ARM_RP2;Password=12345678;");
         }
     }

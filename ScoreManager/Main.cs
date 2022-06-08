@@ -11,19 +11,21 @@ namespace ScoreManager
         public Main()
         {
             InitializeComponent();
-            Create_Digalogs();
         }
         private void Create_Digalogs()
         {
             Adds = new Dictionary<object, Form>()
             {
-                [EmpToolStripMenuItem] = new AddEmployees(this)
+                [EmpToolStripMenuItem] = new WindowEmployees(this),
+                [ReasonsToolStripMenuItem] = new WindowReasons(this),
+                [DepToolStripMenuItem] = new WindowDepartament(this),
+                [TovarsToolStripMenuItem] = new WindowTovar(this)
             };
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             SelectedDB(EmpToolStripMenuItem, e);
-
+            Create_Digalogs();
             delete = new Dictionary<object, f>()
             {
                 [EmpToolStripMenuItem] = () =>
@@ -91,11 +93,7 @@ namespace ScoreManager
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.Reasons.Add(new Reason() { Name = "Переаботал 12 часов", Score = 125});
-                db.SaveChanges();
-            }
+            
         }
 
         private void SelectedDB(object sender, EventArgs e)
@@ -114,6 +112,23 @@ namespace ScoreManager
         {
             delete[selected]();
             updategridToolStripMenuItem_Click(selected, e);
+        }
+
+        private void Edit(object sender, EventArgs e)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                uint id = uint.Parse(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
+                if (selected == EmpToolStripMenuItem)
+                    new WindowEmployees(this, db.historyBalanceEmployees.Get().Where(s => s.Id == id).First()).Show();
+                else if (selected == DepToolStripMenuItem)
+                    new WindowDepartament(this, db.Departments.Where(s => s.Id == id).First()).Show();
+                else if (selected == ReasonsToolStripMenuItem)
+                    new WindowReasons(this, db.Reasons.Where(s => s.Id == id).First()).Show();
+                else if (selected == TovarsToolStripMenuItem)
+                    new Exception();
+                
+            }
         }
     }
 }

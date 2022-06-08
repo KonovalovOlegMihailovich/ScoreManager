@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace ScoreManager
 {
-    public partial class AddDepartament : Form
+    public partial class WindowTovar : Form
     {
-        public AddDepartament()
+        public WindowTovar(Main Sender)
         {
             InitializeComponent();
+        }
+
+        private void WindowTovar_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
