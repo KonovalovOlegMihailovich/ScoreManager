@@ -1,4 +1,4 @@
-
+using Microsoft.EntityFrameworkCore;
 namespace ScoreManager
 {
     public partial class Main : Form
@@ -19,7 +19,8 @@ namespace ScoreManager
                 [EmpToolStripMenuItem] = new WindowEmployees(this),
                 [ReasonsToolStripMenuItem] = new WindowReasons(this),
                 [DepToolStripMenuItem] = new WindowDepartament(this),
-                [TovarsToolStripMenuItem] = new WindowTovar(this)
+                [TovarsToolStripMenuItem] = new WindowTovar(this),
+                [LimitsToolStripMenuItem] = new WindowLimits(this),
             };
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace ScoreManager
                     using (ApplicationContext db = new ApplicationContext())
                     {
                         foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                            db.Reasons.Remove(db.Reasons.Where(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString())).First());
+                            db.Reasons.Remove(db.Reasons.First(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString())));
                         db.SaveChanges();
                     }
                 },
@@ -50,9 +51,13 @@ namespace ScoreManager
                 {
                     using (ApplicationContext db = new ApplicationContext())
                     {
-                        if (MessageBox.Show("Ïðè óäàëåíèå îòäåëà áóäóò óäàëåíû è âñå åãî ñîòðóäíèêè. Âû óâåðåíû?", "Âíèìàíèå", MessageBoxButtons.OKCancel) == DialogResult.Cancel) return;
                         foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                            db.Departments.Remove(db.Departments.Where(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString())).First());
+                        {
+                            Department dep = db.Departments.Include(x => x.Employees).First(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString()));
+                            foreach (Employees emp in dep.Employees)
+                                emp.Department = null;
+                            db.Departments.Remove(dep);
+                        }
                         db.SaveChanges();
                     }
                 },
@@ -61,7 +66,21 @@ namespace ScoreManager
                     using (ApplicationContext db = new ApplicationContext())
                     {
                         foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-                            db.Tovars.Remove(db.Tovars.Where(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString())).First());
+                            db.Tovars.Remove(db.Tovars.First(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString())));
+                        db.SaveChanges();
+                    }
+                },
+                [LimitsToolStripMenuItem] = () =>
+                {
+                    using (ApplicationContext db = new ApplicationContext())
+                    {
+                        foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                        {
+                            Limits limits = db.Limits.Include(x => x.departments).First(s => s.Id == uint.Parse(row.Cells["Id"].Value.ToString()));
+                            foreach (Department dep in limits.departments)
+                                dep.Limits = null;
+                            db.Limits.Remove(limits);
+                        }
                         db.SaveChanges();
                     }
                 }
@@ -84,7 +103,8 @@ namespace ScoreManager
                     [DepToolStripMenuItem] = db.Departments.ToList(),
                     [EmpToolStripMenuItem] = db.historyBalanceEmployees.Get(),
                     [TovarsToolStripMenuItem] = db.Tovars.ToList(),
-                    [HistoryToolStripMenuItem] = db.historyBalanceEmployees.GetHistories()
+                    [HistoryToolStripMenuItem] = db.historyBalanceEmployees.GetHistories(),
+                    [LimitsToolStripMenuItem] =  db.Limits.ToList()
                 };
                 dataGridView1.DataSource = EselectTable[selected];
                 PravkaToolStripMenuItem.Enabled = !(HistoryToolStripMenuItem == selected);
@@ -100,6 +120,7 @@ namespace ScoreManager
         {
             selected = sender;
             updategridToolStripMenuItem_Click(sender, e);
+            óäàëèòüToolStripMenuItem.Enabled = èçìåíèòüToolStripMenuItem.Enabled = !(dataGridView1.Rows.Count == 0);
         }
 
         private void Add(object sender, EventArgs e)
@@ -120,13 +141,15 @@ namespace ScoreManager
             {
                 uint id = uint.Parse(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
                 if (selected == EmpToolStripMenuItem)
-                    new WindowEmployees(this, db.historyBalanceEmployees.Get().Where(s => s.Id == id).First()).Show();
+                    new WindowEmployees(this, db.historyBalanceEmployees.Get().First(s => s.Id == id)).Show();
                 else if (selected == DepToolStripMenuItem)
-                    new WindowDepartament(this, db.Departments.Where(s => s.Id == id).First()).Show();
+                    new WindowDepartament(this, db.Departments.First(s => s.Id == id)).Show();
                 else if (selected == ReasonsToolStripMenuItem)
-                    new WindowReasons(this, db.Reasons.Where(s => s.Id == id).First()).Show();
+                    new WindowReasons(this, db.Reasons.First(s => s.Id == id)).Show();
                 else if (selected == TovarsToolStripMenuItem)
-                    new Exception();
+                    new WindowTovar(this, db.Tovars.First(s => s.Id == id)).Show();
+                else if (selected == LimitsToolStripMenuItem)
+                    new WindowLimits(this, db.Limits.First(s => s.Id == id)).Show();
                 
             }
         }

@@ -46,7 +46,11 @@ namespace ScoreManager
         public void Remove(Employees entity)
         {
             Histories.RemoveRange(Histories.Where(s => s.Entity == entity)); // Удаляем всю историю связаную с данной записью
-            entity.Department.Balance += entity.Balance; // Отправляем остаток баланса сотрудника в копилку отделу
+            if (entity.Department != null)
+            {
+                entity.Department.Balance += entity.Balance; // Отправляем остаток баланса сотрудника в копилку отделу
+                entity.Department.Employees.Remove(entity);
+            }
             Entities.Remove(entity);
         }
        
@@ -96,9 +100,9 @@ namespace ScoreManager
         public List<Employees> Get() => Entities.ToList();
         public List<History<Employees>> GetHistories() => Histories.ToList();
         // перегрузки, для удобства
-        public void Remove(uint id) => Remove(Entities.Where(s => s.Id == id).First());
-        public void Enrollment(uint id, uint sum) => Enrollment(Entities.Where(s => s.Id == id).First(), sum);
-        public void Writeoff(uint id, uint sum) => Writeoff(Entities.Where(s => s.Id == id).First(), sum);
-        public void Buy(uint idEmp, Tovar tovar) => Buy(Entities.Where(s => s.Id == idEmp).First(), tovar); 
+        public void Remove(uint id) => Remove(Entities.First(s => s.Id == id));
+        public void Enrollment(uint id, uint sum) => Enrollment(Entities.First(s => s.Id == id), sum);
+        public void Writeoff(uint id, uint sum) => Writeoff(Entities.First(s => s.Id == id), sum);
+        public void Buy(uint idEmp, Tovar tovar) => Buy(Entities.First(s=> s.Id == idEmp), tovar); 
     }
 }

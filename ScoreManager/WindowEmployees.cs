@@ -18,9 +18,12 @@ namespace ScoreManager
             this.Load += (s, e) => Sender.Enabled = false;
             this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
             InitializeComponent();
+            List<Department> list;
             using (ApplicationContext db = new ApplicationContext())
             {
-                comboBox1.DataSource = db.Departments.ToArray();
+                list = db.Departments.ToList();
+                comboBox1.Items.AddRange(list.ToArray());
+
             }
             emp = null;
             if (employees != null)
@@ -30,11 +33,10 @@ namespace ScoreManager
 
                 textBox1.Text = employees.FullName;
                 using (ApplicationContext db = new ApplicationContext())
-                {
-                    List <Department> departments = db.Departments.ToList();
-                    comboBox1.DataSource = departments;
+                { 
+                    //comboBox1.DataSource = departments;
                     emp = db.historyBalanceEmployees.Get().Where(s => s.Id == employees.Id).First();
-                    comboBox1.SelectedIndex = departments.IndexOf(emp.Department);
+                    comboBox1.SelectedIndex = list.IndexOf(emp.Department);
                 }
             }
         }
@@ -60,12 +62,12 @@ namespace ScoreManager
                     if (emp != null)
                     {
                         emp.FullName = textBox1.Text;
-                        emp.Department = db.Departments.Where(s => s == (Department)comboBox1.SelectedItem).First();
+                        emp.Department = db.Departments.FirstOrDefault(s => s == (Department)comboBox1.SelectedItem);
                         db.historyBalanceEmployees.Update(emp);
                     }
                     else
                     {
-                        db.historyBalanceEmployees.Add(new Employees() { FullName = textBox1.Text, Department = db.Departments.Where(s => s == (Department)comboBox1.SelectedItem).First() });
+                        db.historyBalanceEmployees.Add(new Employees() { FullName = textBox1.Text, Department = db.Departments.FirstOrDefault(s => s == (Department)comboBox1.SelectedItem) });
                     }
                     db.SaveChanges();
                 }

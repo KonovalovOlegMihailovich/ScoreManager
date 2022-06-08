@@ -69,7 +69,7 @@ namespace ScoreManager
         public string DepartmentName { get; set; }
         public List<Reason> Reasons { get; set; } = new List<Reason>();
         public List<Employees> Employees { get; set; } = new List<Employees>();
-        public List<Limits> Limits { get; set; } = new List<Limits>();
+        public Limits? Limits { get; set; }
         public uint Balance { get; set; } = 0;
         public uint Spent { get; set; } = 0;
         public override string ToString() => DepartmentName;
@@ -81,7 +81,7 @@ namespace ScoreManager
         public uint Id { get; set; }
         public string FullName { get; set; }
         public uint Balance { get; set; } = 0;
-        public Department Department { get; set; }
+        public Department? Department { get; set; } // Для того чтобы сотрудники не удалялись при удалении их из отдела
         public override string ToString() => FullName;
     }
 
@@ -92,10 +92,12 @@ namespace ScoreManager
         public DbSet<Reason> Reasons { get; set; }
         private DbSet<History<Employees>> HistoriesEmp { get; set; }
         public DbSet<Tovar> Tovars { get; set; }
+        public DbSet<Limits> Limits { get; set; }
         public HistoryBalanceEmployees historyBalanceEmployees { get; private set; }
 
         public ApplicationContext()
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
             historyBalanceEmployees = new HistoryBalanceEmployees(Employees, HistoriesEmp);
         }

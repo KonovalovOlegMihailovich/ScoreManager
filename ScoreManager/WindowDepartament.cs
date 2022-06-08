@@ -25,23 +25,36 @@ namespace ScoreManager
         private void WindowDepartament_Load(object sender, EventArgs e)
         {
             using (ApplicationContext db = new ApplicationContext())
-            {
-                // У department нет связи с записями в других таблицами, поэтому поля Employees, Reasons и Limints равны null.
-                // Со связями many-to-* надо работать через SelectMany
-              
+            { 
                 checkedListBox1.Items.AddRange(db.Reasons.ToArray());
+                checkedListBox2.Items.AddRange(db.historyBalanceEmployees.Get().ToArray());
+                comboBox1.Items.AddRange(db.Limits.ToArray());
+
                 if (department != null)
                 {
-                    List<Reason> reasons = db.Departments.Where(s => s.Id == department.Id).SelectMany(s => s.Reasons).ToList();
+                    department = db.Departments.Include(x => x.Reasons).Include(x => x.Limits).Include(x => x.Employees).First(x => x.Id == department.Id);
+                    comboBox1.SelectedIndex = db.Limits.ToList().IndexOf(department.Limits);
+                    List<Reason> reasons = department.Reasons;
+                    List<Employees> employees = department.Employees;
                     textBox1.Text = department.DepartmentName;
                     foreach (Reason reason in reasons)
                     {
-                        department = db.Departments.Where(s => s.Id == department.Id).First();
                         for (int i = 0; i < checkedListBox1.Items.Count; i++)
                         {
                             if (checkedListBox1.Items[i] == reason)
                             {
                                 checkedListBox1.SetItemChecked(i, true);
+                                break; // Если элемент найден, нет смысл перебирать список дальше.
+                            }
+                        }
+                    }
+                    foreach (Employees emp in employees)
+                    {
+                        for (int i = 0; i < checkedListBox2.Items.Count; i++)
+                        {
+                            if (checkedListBox2.Items[i] == emp)
+                            {
+                                checkedListBox2.SetItemChecked(i, true);
                                 break; // Если элемент найден, нет смысл перебирать список дальше.
                             }
                         }
@@ -62,27 +75,35 @@ namespace ScoreManager
                 if (textBox1.Text == "") throw new Exception();
                 List<Reason> reasons = new List<Reason>();
                 List<Employees> employees = new List<Employees>();
-                List<Limits> limits = new List<Limits>();
                 using (ApplicationContext db = new ApplicationContext())
                 {
                     foreach (Reason reason in checkedListBox1.CheckedItems)
                     {
-                        reasons.Add(db.Reasons.Where(s=>s.Id == reason.Id).First());
+                        reasons.Add(db.Reasons.First(s=>s.Id == reason.Id));
+                    }
+                    foreach (Employees emp  in checkedListBox2.CheckedItems)
+                    {
+                        employees.Add(db.historyBalanceEmployees.Get().First(s => s.Id == emp.Id));
                     }
                     if (department != null)
                     {
                         department = db.Departments.Include(x => x.Reasons).Include(x => x.Limits).Include(x => x.Employees).First(x => x.Id == department.Id);
                         department.DepartmentName = textBox1.Text;
                         department.Reasons = reasons;
+                        department.Employees = employees;
+                        department.Limits = db.Limits.FirstOrDefault(s => s == ((Limits)comboBox1.SelectedItem));
                         db.SaveChanges();
                     }
                     else
                     {
                         department = new Department()
                         {
-                            DepartmentName = textBox1.Text
+                            DepartmentName = textBox1.Text,
+                            Limits = db.Limits.FirstOrDefault(s => s == ((Limits)comboBox1.SelectedItem))
                         };
                         department.Reasons.AddRange(reasons);
+                        department.Employees.AddRange(employees);
+//                        department.Limits = db.Limits.FirstOrDefault(s => s.Id == ((Limits)comboBox1.SelectedItem).Id);
                         db.Departments.Add(department);
                     }
                     db.SaveChanges();

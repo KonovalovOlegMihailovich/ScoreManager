@@ -36,6 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -56,7 +58,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 485);
+            this.button1.Location = new System.Drawing.Point(12, 464);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -66,7 +68,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(225, 485);
+            this.button2.Location = new System.Drawing.Point(520, 463);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -79,7 +81,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(12, 74);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(288, 238);
+            this.checkedListBox1.Size = new System.Drawing.Size(288, 382);
             this.checkedListBox1.TabIndex = 4;
             // 
             // label2
@@ -94,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 315);
+            this.label3.Location = new System.Drawing.Point(306, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(287, 15);
             this.label3.TabIndex = 6;
@@ -103,16 +105,35 @@
             // checkedListBox2
             // 
             this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Location = new System.Drawing.Point(12, 332);
+            this.checkedListBox2.Location = new System.Drawing.Point(305, 75);
             this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(288, 148);
+            this.checkedListBox2.Size = new System.Drawing.Size(288, 382);
             this.checkedListBox2.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(305, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 15);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Лимит";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(306, 27);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(287, 23);
+            this.comboBox1.TabIndex = 10;
             // 
             // WindowDepartament
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 512);
+            this.ClientSize = new System.Drawing.Size(607, 494);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.checkedListBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -121,6 +142,10 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(623, 533);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(623, 533);
             this.Name = "WindowDepartament";
             this.Text = "Отдел";
             this.Load += new System.EventHandler(this.WindowDepartament_Load);
@@ -139,5 +164,7 @@
         private Label label2;
         private Label label3;
         private CheckedListBox checkedListBox2;
+        private Label label4;
+        private ComboBox comboBox1;
     }
 }
