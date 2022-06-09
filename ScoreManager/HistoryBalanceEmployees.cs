@@ -24,7 +24,7 @@ namespace ScoreManager
             Histories.Add(new History<Employees> 
             { 
                 Date = DateTime.Now, 
-                Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
+                //Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
                 Entity = entity,
                 Sum = entity.Balance, // В форме не будет поля для указания баланса, все начисления, через начисления идут.
                 Type = "Added"
@@ -37,7 +37,7 @@ namespace ScoreManager
             Histories.Add(new History<Employees>
             {
                 Date = DateTime.Now,
-                Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
+                //Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
                 Entity = entity,
                 Sum = entity.Balance,
                 Type = "Update"
@@ -66,7 +66,7 @@ namespace ScoreManager
             Histories.Add(new History<Employees>
             {
                 Date = DateTime.Now,
-                Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
+                //Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
                 Entity = entity,
                 Sum = entity.Balance,
                 Type = "Enrollment"
@@ -81,7 +81,7 @@ namespace ScoreManager
             Histories.Add(new History<Employees>
             {
                 Date = DateTime.Now,
-                Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
+                //Time = TimeSpan.Parse(DateTime.Now.ToLongTimeString()),
                 Entity = entity,
                 Sum = entity.Balance,
                 Type = "Write-off"

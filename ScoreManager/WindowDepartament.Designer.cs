@@ -38,6 +38,8 @@
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -53,7 +55,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 27);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(288, 23);
+            this.textBox1.Size = new System.Drawing.Size(194, 23);
             this.textBox1.TabIndex = 1;
             // 
             // button1
@@ -81,7 +83,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(12, 74);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(288, 382);
+            this.checkedListBox1.Size = new System.Drawing.Size(287, 382);
             this.checkedListBox1.TabIndex = 4;
             // 
             // label2
@@ -96,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(306, 57);
+            this.label3.Location = new System.Drawing.Point(305, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(287, 15);
             this.label3.TabIndex = 6;
@@ -105,15 +107,15 @@
             // checkedListBox2
             // 
             this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Location = new System.Drawing.Point(305, 75);
+            this.checkedListBox2.Location = new System.Drawing.Point(305, 74);
             this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(288, 382);
+            this.checkedListBox2.Size = new System.Drawing.Size(288, 346);
             this.checkedListBox2.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(305, 9);
+            this.label4.Location = new System.Drawing.Point(212, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 15);
             this.label4.TabIndex = 9;
@@ -121,17 +123,42 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(306, 27);
+            this.comboBox1.Location = new System.Drawing.Point(212, 27);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(287, 23);
+            this.comboBox1.Size = new System.Drawing.Size(381, 23);
             this.comboBox1.TabIndex = 10;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(305, 426);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(84, 19);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "Без отдела";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(395, 426);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(84, 19);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "Этот отдел";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // WindowDepartament
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 494);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkedListBox2);
@@ -166,5 +193,7 @@
         private CheckedListBox checkedListBox2;
         private Label label4;
         private ComboBox comboBox1;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
     }
 }

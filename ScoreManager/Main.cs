@@ -108,6 +108,7 @@ namespace ScoreManager
                 };
                 dataGridView1.DataSource = EselectTable[selected];
                 PravkaToolStripMenuItem.Enabled = !(HistoryToolStripMenuItem == selected);
+                óäàëèòüToolStripMenuItem.Enabled = èçìåíèòüToolStripMenuItem.Enabled = !(dataGridView1.Rows.Count == 0);
             }
         }
 
@@ -120,7 +121,6 @@ namespace ScoreManager
         {
             selected = sender;
             updategridToolStripMenuItem_Click(sender, e);
-            óäàëèòüToolStripMenuItem.Enabled = èçìåíèòüToolStripMenuItem.Enabled = !(dataGridView1.Rows.Count == 0);
         }
 
         private void Add(object sender, EventArgs e)

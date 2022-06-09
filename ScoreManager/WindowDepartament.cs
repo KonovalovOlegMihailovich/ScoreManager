@@ -29,9 +29,10 @@ namespace ScoreManager
                 checkedListBox1.Items.AddRange(db.Reasons.ToArray());
                 checkedListBox2.Items.AddRange(db.historyBalanceEmployees.Get().ToArray());
                 comboBox1.Items.AddRange(db.Limits.ToArray());
-
+                checkBox2.Visible = false;
                 if (department != null)
                 {
+                    checkBox2.Visible = true;
                     department = db.Departments.Include(x => x.Reasons).Include(x => x.Limits).Include(x => x.Employees).First(x => x.Id == department.Id);
                     comboBox1.SelectedIndex = db.Limits.ToList().IndexOf(department.Limits);
                     List<Reason> reasons = department.Reasons;
@@ -90,7 +91,10 @@ namespace ScoreManager
                         department = db.Departments.Include(x => x.Reasons).Include(x => x.Limits).Include(x => x.Employees).First(x => x.Id == department.Id);
                         department.DepartmentName = textBox1.Text;
                         department.Reasons = reasons;
-                        department.Employees = employees;
+                        if (checkBox1.Checked)
+                            department.Employees.AddRange(employees);
+                        else
+                            department.Employees = employees;
                         department.Limits = db.Limits.FirstOrDefault(s => s == ((Limits)comboBox1.SelectedItem));
                         db.SaveChanges();
                     }
@@ -113,6 +117,68 @@ namespace ScoreManager
             {
                 MessageBox.Show("Не возможно сохранить изменения");
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                if (checkBox1.Checked)
+                {
+                    checkBox2.Enabled = false;
+                    foreach (Department dep in db.Departments.Include(x => x.Employees).ToArray())
+                        foreach (Employees emp in dep.Employees)
+                            for (int i = 0; i < checkedListBox2.Items.Count; i++)
+                                if (emp.Id == ((Employees)checkedListBox2.Items[i]).Id)
+                                {
+                                    checkedListBox2.Items.Remove(checkedListBox2.Items[i]);
+                                    break;
+                                }
+                }
+                else
+                {
+                    checkBox2.Enabled = true;
+                    checkedListBox2.Items.Clear();
+                    checkedListBox2.Items.AddRange(db.historyBalanceEmployees.Get().ToArray());
+                    if (department != null)
+                        foreach (Employees emp in department.Employees)
+                            for (int i = 0; i < checkedListBox2.Items.Count; i++)
+                                if (((Employees)checkedListBox2.Items[i]).Id == emp.Id)
+                                {
+                                    checkedListBox2.SetItemChecked(i, true);
+                                    break; // Если элемент найден, нет смысл перебирать список дальше.
+                                }
+                }
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                if (checkBox2.Checked)
+                {
+                    checkBox1.Enabled = false;
+                    checkedListBox2.Items.Clear();
+                    checkedListBox2.Items.AddRange(department.Employees.ToArray());
+                    for (int i = 0; i < checkedListBox2.Items.Count; i++)
+                        checkedListBox2.SetItemChecked(i, true);
+                }
+                else
+                {
+                    checkBox1.Enabled = true;
+                    checkedListBox2.Items.Clear();
+                    checkedListBox2.Items.AddRange(db.historyBalanceEmployees.Get().ToArray());
+                    if (department != null)
+                        foreach (Employees emp in department.Employees)
+                            for (int i = 0; i < checkedListBox2.Items.Count; i++)
+                                if (((Employees)checkedListBox2.Items[i]).Id == emp.Id)
+                                {
+                                    checkedListBox2.SetItemChecked(i, true);
+                                    break; // Если элемент найден, нет смысл перебирать список дальше.
+                                }
+                }
             }
         }
     }

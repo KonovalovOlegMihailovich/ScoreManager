@@ -13,8 +13,7 @@ namespace ScoreManager
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public uint Year { get; set; } = (uint) DateTime.Now.Year; 
+        public int Id { get; set; } 
         public uint January { get; set; }
         public uint February { get; set; }
         public uint March { get; set; }
@@ -28,6 +27,7 @@ namespace ScoreManager
         public uint November { get; set; }
         public uint December { get; set; }
         public List<Department> departments { get; set; }
+        public override string ToString() => $"{January}, {February}, {March}, {April}, {May}, {June}, {July}, {August}, {September}, {October}, {November}, {December}";
     }
     public class Tovar
     {
@@ -45,7 +45,7 @@ namespace ScoreManager
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public uint Id { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
+        //public TimeSpan Time { get; set; }
         public string Type { get; set; }
         public uint Sum { get; set; }
         public TEntity Entity { get; set; }
@@ -103,7 +103,7 @@ namespace ScoreManager
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Здесь надо строчку подключения поменять, при желании можно реализовать чтобы 
+            // Здесь надо строчку подключения поменять, при желании можно реализовать чтобы выдавалось окно
             optionsBuilder.UseSqlServer("Data Source=.\\MSSQLSERVER1;Database=1c-galex;User ID=ARM_RP2;Password=12345678;");
         }
     }
