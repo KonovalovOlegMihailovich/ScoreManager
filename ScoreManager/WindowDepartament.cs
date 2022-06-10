@@ -5,6 +5,7 @@ namespace ScoreManager
     public partial class WindowDepartament : Form
     {
         Department? department;
+        
         public WindowDepartament(Main Sender, Department? department = null)
         {
             Load += (s, e) => Sender.Enabled = false;
@@ -84,6 +85,8 @@ namespace ScoreManager
                             DepartmentName = textBox1.Text,
                             Limits = db.Limits.FirstOrDefault(s => s == ((Limits)comboBox1.SelectedItem))
                         };
+                        if (department.Limits != null)
+                            department.Balance = department.Limits.ToArray()[DateTime.Now.Month - 1];
                         department.Reasons.AddRange(reasons);
                         department.Employees.AddRange(employees);
 //                        department.Limits = db.Limits.FirstOrDefault(s => s.Id == ((Limits)comboBox1.SelectedItem).Id);

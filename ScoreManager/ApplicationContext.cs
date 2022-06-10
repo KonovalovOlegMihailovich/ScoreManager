@@ -130,6 +130,7 @@ namespace ScoreManager
         public HistoryBalanceEmployees historyBalanceEmployees { get; private set; }
         public DbSet<Login> Logins { get; set; } // Для расчёта лимитов и баланса.
         private DbSet<Company> Company { get; set; }
+        public DbSet<History<Department>> historiesdep { get; set; }
 
         public Company GetCompany()
         {

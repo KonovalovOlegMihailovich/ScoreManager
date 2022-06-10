@@ -45,28 +45,15 @@
             this.TovarsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LimitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DepMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.сотрудникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.начислитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.причиныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReasMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.отделыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.limitsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.отделыToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.MultiEmpcontextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.добавитьВОтделToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HistoryDepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.EmpMenuStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.DepMenuStrip.SuspendLayout();
-            this.ReasMenuStrip.SuspendLayout();
-            this.limitsMenuStrip.SuspendLayout();
-            this.MultiEmpcontextMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -151,7 +138,8 @@
             this.DepToolStripMenuItem,
             this.TovarsToolStripMenuItem,
             this.LimitsToolStripMenuItem,
-            this.HistoryToolStripMenuItem});
+            this.HistoryToolStripMenuItem,
+            this.HistoryDepToolStripMenuItem});
             this.показатьToolStripMenuItem.Name = "показатьToolStripMenuItem";
             this.показатьToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.показатьToolStripMenuItem.Text = "Показать";
@@ -159,110 +147,51 @@
             // ReasonsToolStripMenuItem
             // 
             this.ReasonsToolStripMenuItem.Name = "ReasonsToolStripMenuItem";
-            this.ReasonsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.ReasonsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.ReasonsToolStripMenuItem.Text = "Причины";
             this.ReasonsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // EmpToolStripMenuItem
             // 
             this.EmpToolStripMenuItem.Name = "EmpToolStripMenuItem";
-            this.EmpToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.EmpToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.EmpToolStripMenuItem.Text = "Персонал";
             this.EmpToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // DepToolStripMenuItem
             // 
             this.DepToolStripMenuItem.Name = "DepToolStripMenuItem";
-            this.DepToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.DepToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.DepToolStripMenuItem.Text = "Отделы";
             this.DepToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // TovarsToolStripMenuItem
             // 
             this.TovarsToolStripMenuItem.Name = "TovarsToolStripMenuItem";
-            this.TovarsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.TovarsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.TovarsToolStripMenuItem.Text = "Товары";
             this.TovarsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // LimitsToolStripMenuItem
             // 
             this.LimitsToolStripMenuItem.Name = "LimitsToolStripMenuItem";
-            this.LimitsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.LimitsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.LimitsToolStripMenuItem.Text = "Лимиты";
             this.LimitsToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // HistoryToolStripMenuItem
             // 
             this.HistoryToolStripMenuItem.Name = "HistoryToolStripMenuItem";
-            this.HistoryToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.HistoryToolStripMenuItem.Text = "История";
+            this.HistoryToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.HistoryToolStripMenuItem.Text = "История сотрудников";
             this.HistoryToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
-            // DepMenuStrip
+            // HistoryDepToolStripMenuItem
             // 
-            this.DepMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сотрудникиToolStripMenuItem,
-            this.начислитьToolStripMenuItem,
-            this.причиныToolStripMenuItem});
-            this.DepMenuStrip.Name = "DepMenuStrip";
-            this.DepMenuStrip.Size = new System.Drawing.Size(141, 70);
-            // 
-            // сотрудникиToolStripMenuItem
-            // 
-            this.сотрудникиToolStripMenuItem.Name = "сотрудникиToolStripMenuItem";
-            this.сотрудникиToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.сотрудникиToolStripMenuItem.Text = "Сотрудники";
-            // 
-            // начислитьToolStripMenuItem
-            // 
-            this.начислитьToolStripMenuItem.Name = "начислитьToolStripMenuItem";
-            this.начислитьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.начислитьToolStripMenuItem.Text = "Начислить";
-            // 
-            // причиныToolStripMenuItem
-            // 
-            this.причиныToolStripMenuItem.Name = "причиныToolStripMenuItem";
-            this.причиныToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.причиныToolStripMenuItem.Text = "Списать";
-            // 
-            // ReasMenuStrip
-            // 
-            this.ReasMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отделыToolStripMenuItem});
-            this.ReasMenuStrip.Name = "contextMenuStrip2";
-            this.ReasMenuStrip.Size = new System.Drawing.Size(117, 26);
-            // 
-            // отделыToolStripMenuItem
-            // 
-            this.отделыToolStripMenuItem.Name = "отделыToolStripMenuItem";
-            this.отделыToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.отделыToolStripMenuItem.Text = "Отделы";
-            // 
-            // limitsMenuStrip
-            // 
-            this.limitsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отделыToolStripMenuItem1});
-            this.limitsMenuStrip.Name = "contextMenuStrip2";
-            this.limitsMenuStrip.Size = new System.Drawing.Size(117, 26);
-            // 
-            // отделыToolStripMenuItem1
-            // 
-            this.отделыToolStripMenuItem1.Name = "отделыToolStripMenuItem1";
-            this.отделыToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.отделыToolStripMenuItem1.Text = "Отделы";
-            // 
-            // MultiEmpcontextMenuStrip
-            // 
-            this.MultiEmpcontextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.добавитьВОтделToolStripMenuItem});
-            this.MultiEmpcontextMenuStrip.Name = "contextMenuStrip1";
-            this.MultiEmpcontextMenuStrip.Size = new System.Drawing.Size(170, 26);
-            // 
-            // добавитьВОтделToolStripMenuItem
-            // 
-            this.добавитьВОтделToolStripMenuItem.Name = "добавитьВОтделToolStripMenuItem";
-            this.добавитьВОтделToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.добавитьВОтделToolStripMenuItem.Text = "Добавить в отдел";
+            this.HistoryDepToolStripMenuItem.Name = "HistoryDepToolStripMenuItem";
+            this.HistoryDepToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.HistoryDepToolStripMenuItem.Text = "История отделов";
+            this.HistoryDepToolStripMenuItem.Click += new System.EventHandler(this.SelectedDB);
             // 
             // statusStrip1
             // 
@@ -277,6 +206,19 @@
             this.statusStrip1.Size = new System.Drawing.Size(967, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(82, 17);
+            this.toolStripStatusLabel3.Text = "Время входа: ";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabel4.Text = "-";
             // 
             // toolStripStatusLabel1
             // 
@@ -309,19 +251,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(967, 404);
             this.dataGridView1.TabIndex = 6;
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(82, 17);
-            this.toolStripStatusLabel3.Text = "Время входа: ";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(12, 17);
-            this.toolStripStatusLabel4.Text = "-";
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectChanged);
             // 
             // Main
             // 
@@ -338,10 +268,6 @@
             this.EmpMenuStrip.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.DepMenuStrip.ResumeLayout(false);
-            this.ReasMenuStrip.ResumeLayout(false);
-            this.limitsMenuStrip.ResumeLayout(false);
-            this.MultiEmpcontextMenuStrip.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -366,22 +292,13 @@
         private ToolStripMenuItem историяСписанийИНачисленийToolStripMenuItem;
         private ToolStripMenuItem TovarsToolStripMenuItem;
         private ToolStripMenuItem HistoryToolStripMenuItem;
-        private ContextMenuStrip DepMenuStrip;
-        private ContextMenuStrip ReasMenuStrip;
-        private ContextMenuStrip limitsMenuStrip;
         private ToolStripMenuItem LimitsToolStripMenuItem;
-        private ToolStripMenuItem сотрудникиToolStripMenuItem;
-        private ToolStripMenuItem начислитьToolStripMenuItem;
-        private ToolStripMenuItem причиныToolStripMenuItem;
-        private ToolStripMenuItem отделыToolStripMenuItem;
-        private ToolStripMenuItem отделыToolStripMenuItem1;
-        private ContextMenuStrip MultiEmpcontextMenuStrip;
-        private ToolStripMenuItem добавитьВОтделToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel toolStripStatusLabel2;
         private DataGridView dataGridView1;
         private ToolStripStatusLabel toolStripStatusLabel3;
         private ToolStripStatusLabel toolStripStatusLabel4;
+        private ToolStripMenuItem HistoryDepToolStripMenuItem;
     }
 }

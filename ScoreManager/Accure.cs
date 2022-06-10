@@ -83,8 +83,13 @@ namespace ScoreManager
                     sum += reason.Score;
                 foreach (Employees emp in checkedItems2)
                     db.historyBalanceEmployees.Enrollment(db.historyBalanceEmployees.Get().First(x => x.Id == emp.Id), sum);
+                listBox1.Items.Clear();
+                foreach (Employees emp in dep.Employees)
+                {
+                    listBox1.Items.Add($"{emp.Balance}\t- {emp.FullName}");
+                }
                 toolStripStatusLabel2.Text = dep.Balance.ToString();
-
+                
                 if (save)
                 { 
                     db.Departments.Update(dep);

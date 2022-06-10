@@ -99,7 +99,7 @@ namespace ScoreManager
             tovar.Quantity--;
         }
         public List<Employees> Get() => Entities.Include(x => x.Department).OrderBy(x => x.Id).ToList();
-        public List<History<Employees>> GetHistories() => Histories.ToList();
+        public List<History<Employees>> GetHistories() => Histories.Include(x => x.Entity).OrderBy(x=>x.Id).ToList();
         // перегрузки, для удобства
         public void Remove(uint id) => Remove(Entities.First(s => s.Id == id));
         public void Enrollment(uint id, uint sum) => Enrollment(Entities.First(s => s.Id == id), sum);

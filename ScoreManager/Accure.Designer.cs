@@ -48,13 +48,13 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(12, 27);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(200, 220);
+            this.checkedListBox1.Size = new System.Drawing.Size(200, 400);
             this.checkedListBox1.TabIndex = 0;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_ItemCheck);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 253);
+            this.button1.Location = new System.Drawing.Point(12, 433);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(699, 253);
+            this.button2.Location = new System.Drawing.Point(699, 433);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -86,7 +86,7 @@
             this.checkedListBox2.FormattingEnabled = true;
             this.checkedListBox2.Location = new System.Drawing.Point(218, 27);
             this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(254, 220);
+            this.checkedListBox2.Size = new System.Drawing.Size(254, 400);
             this.checkedListBox2.TabIndex = 4;
             this.checkedListBox2.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_ItemCheck);
             // 
@@ -104,7 +104,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 279);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 461);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(786, 22);
             this.statusStrip1.TabIndex = 6;
@@ -139,7 +139,7 @@
             this.listBox1.Location = new System.Drawing.Point(478, 27);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(296, 220);
+            this.listBox1.Size = new System.Drawing.Size(296, 400);
             this.listBox1.TabIndex = 8;
             // 
             // label4
@@ -155,7 +155,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(786, 301);
+            this.ClientSize = new System.Drawing.Size(786, 483);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label3);

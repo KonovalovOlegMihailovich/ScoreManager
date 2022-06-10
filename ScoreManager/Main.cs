@@ -8,7 +8,6 @@ namespace ScoreManager
         private delegate void f();
         private Dictionary<object, f> delete;
         private Dictionary<object, ContextMenuStrip> menus;
-        private Dictionary<object, ContextMenuStrip> Multimenus;
         public object Selected { get; private set; }
         public Main()
         {
@@ -92,20 +91,12 @@ namespace ScoreManager
             menus = new Dictionary<object, ContextMenuStrip>()
             {
                 [EmpToolStripMenuItem] = EmpMenuStrip,
-                [ReasonsToolStripMenuItem] = ReasMenuStrip,
-                [DepToolStripMenuItem] = DepMenuStrip,
-                [TovarsToolStripMenuItem] = new ContextMenuStrip(),// Для товара нет смысла делать менюшку
-                [HistoryToolStripMenuItem] = new ContextMenuStrip(),// Для истории так же
-                [LimitsToolStripMenuItem] = limitsMenuStrip
-            };
-            Multimenus = new Dictionary<object, ContextMenuStrip>()
-            {
-                [EmpToolStripMenuItem] = MultiEmpcontextMenuStrip,
                 [ReasonsToolStripMenuItem] = new ContextMenuStrip(),
                 [DepToolStripMenuItem] = new ContextMenuStrip(),
-                [TovarsToolStripMenuItem] = new ContextMenuStrip(),// Для товара нет смысла делать менюшку
-                [HistoryToolStripMenuItem] = new ContextMenuStrip(),// Для истории так же
-                [LimitsToolStripMenuItem] = new ContextMenuStrip()
+                [TovarsToolStripMenuItem] = new ContextMenuStrip(),
+                [HistoryToolStripMenuItem] = new ContextMenuStrip(),
+                [LimitsToolStripMenuItem] = new ContextMenuStrip(),
+                [HistoryDepToolStripMenuItem] = new ContextMenuStrip()
             };
             SelectedDB(EmpToolStripMenuItem, e);
             using (ApplicationContext db = new ApplicationContext())
@@ -119,13 +110,22 @@ namespace ScoreManager
                 {
                     db.Logins.RemoveRange(db.Logins.Where(x => x.Date.Month < db.Logins.Last().Date.Month));
                     uint sum = 0;
-                    foreach (Department dep in db.Departments.Include(x => x.Limits).ToList())
+                    foreach (Department dep in db.Departments.Include(x => x.Limits).Include(x => x.Reasons).Include(x => x.Employees).ToList())
                     {
                         sum += dep.Balance;
                         if (dep.Limits != null)
                             dep.Balance = dep.Limits.ToArray()[db.Logins.OrderBy(x => x.Id).Last().Date.Month - 1];
                         else
                             dep.Balance = 0; // Для безлимитных отделов баланс 0.
+                        db.historiesdep.Add(new History<Department>()
+                        {
+                            Date = DateTime.Now,
+                            Type = "Spent",
+                            Sum = dep.Spent,
+                            Entity = dep
+                        });
+                        dep.Spent = 0;
+                        db.Departments.Update(dep);
                     }
                     db.UpBalance(sum);
                     db.SaveChanges();
@@ -147,11 +147,12 @@ namespace ScoreManager
                     [EmpToolStripMenuItem] = db.historyBalanceEmployees.Get(),
                     [TovarsToolStripMenuItem] = db.Tovars.ToList(),
                     [HistoryToolStripMenuItem] = db.historyBalanceEmployees.GetHistories(),
-                    [LimitsToolStripMenuItem] =  db.Limits.ToList()
+                    [LimitsToolStripMenuItem] =  db.Limits.ToList(),
+                    [HistoryDepToolStripMenuItem] = db.historiesdep.ToList()
                 };
                 dataGridView1.DataSource = EselectTable[Selected];
                 dataGridView1.ContextMenuStrip = menus[Selected];
-                PravkaToolStripMenuItem.Enabled = !(HistoryToolStripMenuItem == Selected); // Блокируем кнопку правки на таблице с историей.
+                PravkaToolStripMenuItem.Enabled = !(HistoryToolStripMenuItem == Selected || HistoryDepToolStripMenuItem == Selected); // Блокируем кнопку правки на таблице с историей.
                 deleteToolStripMenuItem.Enabled = editToolStripMenuItem.Enabled = !(dataGridView1.Rows.Count == 0); // Блокируем кнопки удаления и изменения, если таблица пустая
             }
             foreach (DataGridViewColumn column in dataGridView1.Columns)
@@ -197,7 +198,7 @@ namespace ScoreManager
         private void dataGridView1_SelectChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 1)
-                dataGridView1.ContextMenuStrip = Multimenus[Selected];
+                dataGridView1.ContextMenuStrip = null;
             else
                 dataGridView1.ContextMenuStrip = menus[Selected]; 
         }
@@ -206,18 +207,26 @@ namespace ScoreManager
         {
             uint id = uint.Parse(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
             using (ApplicationContext db = new ApplicationContext())
-                if (db.historyBalanceEmployees.Get().First(s => s.Id == id) != null)
+                if (db.historyBalanceEmployees.Get().First(s => s.Id == id).Department != null)
                     new Accure(this, db.historyBalanceEmployees.Get().First(s => s.Id == id)).Show();
+                else
+                    MessageBox.Show("Сотруднику без отдела нельзя начислить баллы");
         }
 
         private void Writeoff(object sender, EventArgs e)
         {
-
+            uint id = uint.Parse(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
+            using (ApplicationContext db = new ApplicationContext())
+                if (db.historyBalanceEmployees.Get().First(s => s.Id == id) != null)
+                    new WriteOff(this, db.historyBalanceEmployees.Get().First(s => s.Id == id)).Show();
         }
 
         private void History(object sender, EventArgs e)
         {
-
+            uint id = uint.Parse(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString());
+            using (ApplicationContext db = new ApplicationContext())
+                if (db.historyBalanceEmployees.Get().First(s => s.Id == id) != null)
+                    new History(this, db.historyBalanceEmployees.Get().First(s => s.Id == id)).Show();
         }
     }
 }
