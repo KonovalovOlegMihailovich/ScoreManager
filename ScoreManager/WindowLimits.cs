@@ -13,11 +13,11 @@ namespace ScoreManager
 {
     public partial class WindowLimits : Form
     {
-        Limits limits;
-        public WindowLimits(Main Sender, Limits limits = null)
+        Limits? limits;
+        public WindowLimits(Main Sender, Limits? limits = null)
         {
             this.Load += (s, e) => Sender.Enabled = false;
-            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
+            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.Selected, new EventArgs()); };
             InitializeComponent();
             this.limits = limits;
         }
@@ -61,9 +61,7 @@ namespace ScoreManager
             using (ApplicationContext db = new ApplicationContext())
             {
                 foreach (Department department in checkedListBox1.CheckedItems)
-                {
                     departments.Add(db.Departments.First(s=> s.Id == department.Id));
-                }
                 try
                 {
                     if (limits != null)
@@ -82,6 +80,9 @@ namespace ScoreManager
                         limits.December = uint.Parse(textBox12.Text);
                         limits.departments = departments;
                         db.Limits.Update(limits);
+
+                        foreach (Department dep in departments)
+                            dep.Balance = limits.ToArray()[DateTime.Now.Month - 1];
                     }
                     else
                     {
@@ -102,6 +103,9 @@ namespace ScoreManager
                             departments = departments
                         };
                         db.Limits.Add(limits);
+
+                        foreach (Department dep in departments)
+                            dep.Balance = limits.ToArray()[DateTime.Now.Month - 1];
                     }
                     db.SaveChanges();
                     Close();

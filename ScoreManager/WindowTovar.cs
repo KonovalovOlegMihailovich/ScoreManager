@@ -12,11 +12,11 @@ namespace ScoreManager
 {
     public partial class WindowTovar : Form
     {
-        Tovar tovar;
-        public WindowTovar(Main Sender, Tovar tovar = null)
+        Tovar? tovar;
+        public WindowTovar(Main Sender, Tovar? tovar = null)
         {
             this.Load += (s, e) => Sender.Enabled = false;
-            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
+            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.Selected, new EventArgs()); };
             InitializeComponent();
             this.tovar = tovar;
         }

@@ -12,11 +12,11 @@ namespace ScoreManager
 {
     public partial class WindowEmployees : Form
     {
-        private Employees emp;
-        public WindowEmployees(Main Sender, Employees employees = null)
+        private Employees? emp;
+        public WindowEmployees(Main Sender, Employees? employees = null)
         {
             this.Load += (s, e) => Sender.Enabled = false;
-            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
+            this.FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.Selected, new EventArgs()); };
             InitializeComponent();
             List<Department> list;
             using (ApplicationContext db = new ApplicationContext())

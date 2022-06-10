@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ScoreManager
 {
     public partial class WindowDepartament : Form
     {
-        Department department;
-        public WindowDepartament(Main Sender, Department department = null)
+        Department? department;
+        public WindowDepartament(Main Sender, Department? department = null)
         {
             Load += (s, e) => Sender.Enabled = false;
-            FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
+            FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.Selected, new EventArgs()); };
             InitializeComponent();
             this.department = department;
         }
@@ -39,27 +30,19 @@ namespace ScoreManager
                     List<Employees> employees = department.Employees;
                     textBox1.Text = department.DepartmentName;
                     foreach (Reason reason in reasons)
-                    {
                         for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                        {
                             if (checkedListBox1.Items[i] == reason)
                             {
                                 checkedListBox1.SetItemChecked(i, true);
                                 break; // Если элемент найден, нет смысл перебирать список дальше.
                             }
-                        }
-                    }
                     foreach (Employees emp in employees)
-                    {
                         for (int i = 0; i < checkedListBox2.Items.Count; i++)
-                        {
                             if (checkedListBox2.Items[i] == emp)
                             {
                                 checkedListBox2.SetItemChecked(i, true);
                                 break; // Если элемент найден, нет смысл перебирать список дальше.
                             }
-                        }
-                    }
                 }
             }
         }
@@ -79,13 +62,9 @@ namespace ScoreManager
                 using (ApplicationContext db = new ApplicationContext())
                 {
                     foreach (Reason reason in checkedListBox1.CheckedItems)
-                    {
                         reasons.Add(db.Reasons.First(s=>s.Id == reason.Id));
-                    }
                     foreach (Employees emp  in checkedListBox2.CheckedItems)
-                    {
                         employees.Add(db.historyBalanceEmployees.Get().First(s => s.Id == emp.Id));
-                    }
                     if (department != null)
                     {
                         department = db.Departments.Include(x => x.Reasons).Include(x => x.Limits).Include(x => x.Employees).First(x => x.Id == department.Id);
@@ -113,17 +92,15 @@ namespace ScoreManager
                     db.SaveChanges();
                 }
                 Close();
-            } catch (Exception ex)
+            } catch (Exception)
             {
                 MessageBox.Show("Не возможно сохранить изменения");
-                MessageBox.Show(ex.Message);
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             using (ApplicationContext db = new ApplicationContext())
-            {
                 if (checkBox1.Checked)
                 {
                     checkBox2.Enabled = false;
@@ -150,13 +127,11 @@ namespace ScoreManager
                                     break; // Если элемент найден, нет смысл перебирать список дальше.
                                 }
                 }
-            }
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             using (ApplicationContext db = new ApplicationContext())
-            {
                 if (checkBox2.Checked)
                 {
                     checkBox1.Enabled = false;
@@ -179,7 +154,6 @@ namespace ScoreManager
                                     break; // Если элемент найден, нет смысл перебирать список дальше.
                                 }
                 }
-            }
         }
     }
 }

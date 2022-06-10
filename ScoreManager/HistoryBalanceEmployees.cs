@@ -58,7 +58,8 @@ namespace ScoreManager
         public void Enrollment(Employees entity, uint sum) 
         {
             // Тяжело будет такое регистрировать, но другого решения не вижу.
-            if (entity.Department.Balance < sum) throw new Exception("To many Balance Departament");
+            if (entity.Department == null) throw new Exception("Невозможно начислить сотруднику без отдела баллы");
+            if (entity.Department.Balance < sum) throw new Exception("Слишком маленький баланс отдела");
             entity.Department.Balance -= sum;
             entity.Department.Spent += sum; 
             entity.Balance += sum;
@@ -72,7 +73,7 @@ namespace ScoreManager
                 Type = "Enrollment"
             });
         }
-        
+
         public void Writeoff(Employees entity, uint sum) 
         {
             if (entity.Balance < sum) throw new Exception("To many Balance");
@@ -97,7 +98,7 @@ namespace ScoreManager
             entity.Balance -= tovar.Price;
             tovar.Quantity--;
         }
-        public List<Employees> Get() => Entities.ToList();
+        public List<Employees> Get() => Entities.Include(x => x.Department).OrderBy(x => x.Id).ToList();
         public List<History<Employees>> GetHistories() => Histories.ToList();
         // перегрузки, для удобства
         public void Remove(uint id) => Remove(Entities.First(s => s.Id == id));

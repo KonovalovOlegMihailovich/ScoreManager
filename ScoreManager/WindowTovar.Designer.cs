@@ -121,7 +121,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(266, 181);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(266, 181);
             this.Name = "WindowTovar";
             this.Text = "Товар";

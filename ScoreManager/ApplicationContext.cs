@@ -13,7 +13,7 @@ namespace ScoreManager
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public uint January { get; set; }
         public uint February { get; set; }
         public uint March { get; set; }
@@ -27,7 +27,9 @@ namespace ScoreManager
         public uint November { get; set; }
         public uint December { get; set; }
         public List<Department> departments { get; set; }
-        public override string ToString() => $"{January}, {February}, {March}, {April}, {May}, {June}, {July}, {August}, {September}, {October}, {November}, {December}";
+        //public override string ToString() => $"{January}, {February}, {March}, {April}, {May}, {June}, {July}, {August}, {September}, {October}, {November}, {December}";
+        public override string ToString() => string.Join(",", ToArray());
+        public uint[] ToArray() => new uint[12] { January, February, March, April, May, June, July, August, September, October, November, December }; // 
     }
     public class Tovar
     {
@@ -85,7 +87,39 @@ namespace ScoreManager
         public override string ToString() => FullName;
     }
 
-    internal class ApplicationContext: DbContext
+    public class Login
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public uint Id { get; private set; }
+        public DateTime Date { get; private set; } = DateTime.Now;
+    }
+
+    public class Company // Будет только одна запись в ней, много компаний не надо.
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public uint Id { get; private set; }
+        public uint Balance { get; set; } = 20000;
+        private uint _balance { get; set; } = 0;
+        private uint _addsiter { get; set; } = 0;
+        internal void SetBalance(uint sum) => Balance = sum;
+        internal void Add(uint sum)
+        {
+            _addsiter++;
+            _balance += sum;
+            if (_addsiter == 4)
+                QueareAdd();
+        }
+        private void QueareAdd() 
+        {
+            Balance += _balance;
+            _balance = 0;
+            _addsiter = 0;
+        }
+    }
+
+    internal class ApplicationContext : DbContext
     {
         private DbSet<Employees> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -94,6 +128,33 @@ namespace ScoreManager
         public DbSet<Tovar> Tovars { get; set; }
         public DbSet<Limits> Limits { get; set; }
         public HistoryBalanceEmployees historyBalanceEmployees { get; private set; }
+        public DbSet<Login> Logins { get; set; } // Для расчёта лимитов и баланса.
+        private DbSet<Company> Company { get; set; }
+
+        public Company GetCompany()
+        {
+            if (Company.Count() == 0)
+            { 
+                Company.Add(new Company());
+                this.SaveChanges();
+            }
+            return Company.First();
+        }
+        
+        public void UpBalance(uint sum)
+        {
+            Company c = GetCompany();
+            c.Add(sum);
+            Company.Update(c);
+            this.SaveChanges();
+        }
+        public void DownBalance(uint sum)
+        {
+            Company c = GetCompany();
+            c.Balance -= sum;
+            Company.Update(c);
+            this.SaveChanges();
+        }
 
         public ApplicationContext()
         {
@@ -101,6 +162,7 @@ namespace ScoreManager
             Database.EnsureCreated();
             historyBalanceEmployees = new HistoryBalanceEmployees(Employees, HistoriesEmp);
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Здесь надо строчку подключения поменять, при желании можно реализовать чтобы выдавалось окно

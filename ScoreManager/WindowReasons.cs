@@ -12,11 +12,11 @@ namespace ScoreManager
 {
     public partial class WindowReasons : Form
     {
-        Reason reason;
-        public WindowReasons(Main Sender, Reason reason = null)
+        Reason? reason;
+        public WindowReasons(Main Sender, Reason? reason = null)
         {
             Load += (s, e) => Sender.Enabled = false;
-            FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.selected, new EventArgs()); };
+            FormClosing += (s, e) => { Sender.Enabled = true; Sender.updategridToolStripMenuItem_Click(Sender.Selected, new EventArgs()); };
             InitializeComponent();
             this.reason = reason;
 
